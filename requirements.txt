@@ -1,0 +1,13 @@
+beautifulsoup4
+langchain
+langchain-community
+langchain-openai
+openai
+PyPDF2
+pytube
+qdrant_client
+streamlit
+streamlit_chat
+requests
+tiktoken
+youtube-transcript-api
