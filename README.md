@@ -32,7 +32,7 @@ Make sure Docker and Docker Compose are installed on your system. If not, please
 
 Then, build and start the application by running:
 ```shell-session
-docker-compose up --build
+docker-compose up
 ```
 
 This command builds the necessary Docker image and starts the application. The `--build` flag ensures that the image is built based on the latest source code.
