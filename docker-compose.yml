@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  langchain-app:
+    build:
+      context: .
+      args:
+        OPENAI_API_KEY: ${OPENAI_API_KEY}
+      dockerfile: Dockerfile
+    image: langchain
+    ports:
+      - "8501:8501"
+    tty: true

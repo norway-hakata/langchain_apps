@@ -3,6 +3,7 @@ langchain
 langchain-community
 langchain-openai
 openai
+pycryptodome
 PyPDF2
 pytube
 qdrant_client

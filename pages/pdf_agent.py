@@ -1,13 +1,12 @@
 import streamlit as st
-from glob import glob
 
-from langchain.chat_models import ChatOpenAI
-from langchain.llms import OpenAI
 from langchain.chains import RetrievalQA
-from langchain_community.callbacks import get_openai_callback
-from langchain_community.vectorstores import Qdrant
-from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.callbacks import get_openai_callback
+from langchain_community.llms import OpenAI
+from langchain_community.vectorstores import Qdrant
+from langchain_openai import OpenAIEmbeddings
+from langchain_openai.chat_models import ChatOpenAI
 
 from PyPDF2 import PdfReader
 from qdrant_client import QdrantClient
@@ -19,7 +18,7 @@ COLLECTION_NAME = "my_collention"
 
 def init_page():
     st.set_page_config(
-        page_title = "Ask My PDF(s)",
+        page_title = "Ask My PDFs",
         page_icon = "🤖"
     )
     st.sidebar.title("Nav")
@@ -67,7 +66,7 @@ def load_qdrant():
     if COLLECTION_NAME not in collection_names:
         client.create_collection(
             collection_name=COLLECTION_NAME,
-            vector_config=VectorParams(size=1536, distance=Distance.COSINE)
+            vectors_config=VectorParams(size=1536, distance=Distance.COSINE)
         )
         print("collection created")
     
@@ -116,7 +115,7 @@ def ask(qa, query):
 
 
 def page_ask_my_pdf():
-    st.title("Ask My PDF(s)")
+    st.title("Ask My PDFs")
 
     llm = select_model()
     container = st.container()
@@ -144,10 +143,10 @@ def page_ask_my_pdf():
 def main():
     init_page()
 
-    selection = st.sidebar.radio("Go to", ["PDF Upload", "Ask My PDF(s)"])
+    selection = st.sidebar.radio("Go to", ["PDF Upload", "Ask My PDFs"])
     if selection == "PDF Upload":
         page_pdf_upload_and_build_vector_db()
-    elif selection == "Ask My PDF(s)":
+    elif selection == "Ask My PDFs":
         page_ask_my_pdf()
 
     costs = st.session_state.get('costs', [])
